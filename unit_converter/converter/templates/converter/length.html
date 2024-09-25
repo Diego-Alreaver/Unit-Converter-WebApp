@@ -1,0 +1,36 @@
+<!-- templates/converter/length.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Length Converter</title>
+</head>
+<body>
+    <h1>Convert Length</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="value">Value:</label>
+        <input type="text" name="value" id="value" required>
+        
+        <label for="from_unit">From:</label>
+        <select name="from_unit" id="from_unit">
+            <option value="meter">Meter</option>
+            <option value="kilometer">Kilometer</option>
+            <!-- Otras opciones... -->
+        </select>
+
+        <label for="to_unit">To:</label>
+        <select name="to_unit" id="to_unit">
+            <option value="meter">Meter</option>
+            <option value="kilometer">Kilometer</option>
+            <!-- Otras opciones... -->
+        </select>
+
+        <button type="submit">Convert</button>
+    </form>
+
+    {% if converted_value %}
+        <h2>Converted Value: {{ converted_value }}</h2>
+    {% endif %}
+</body>
+</html>
