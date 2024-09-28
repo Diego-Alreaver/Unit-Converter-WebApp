@@ -3,10 +3,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Length Converter</title>
+    <title>Weight Converter</title>
 </head>
 <body>
-    <h1>Convert Length</h1>
+    <h1>Convert Weight</h1>
     <form method="POST">
         {% csrf_token %}
         <label for="value">Value:</label>
@@ -14,15 +14,15 @@
         
         <label for="from_unit">From:</label>
         <select name="from_unit" id="from_unit">
-            <option value="meter">Meter</option>
-            <option value="kilometer">Kilometer</option>
+            <option value="gram">Gram</option>
+            <option value="kilogram">Kilogram</option>
             <!-- Otras opciones... -->
         </select>
 
         <label for="to_unit">To:</label>
         <select name="to_unit" id="to_unit">
-            <option value="meter">Meter</option>
-            <option value="kilometer">Kilometer</option>
+            <option value="gram">Gram</option>
+            <option value="kilogram">Kilogram</option>
             <!-- Otras opciones... -->
         </select>
 
