@@ -30,7 +30,7 @@
     </form>
 
     {% if converted_value %}
-        <h2>Converted Value: {{ converted_value }} {{to_unit}}</h2>
+        <h2>Converted Value: {{ value }} {{ from_unit }} is {{ converted_value }} {{ to_unit }}</h2>
     {% endif %}
 </body>
 </html>

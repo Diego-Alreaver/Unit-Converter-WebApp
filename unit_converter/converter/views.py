@@ -1,7 +1,7 @@
 # converter/views.py
 from django.shortcuts import render
 
-# Diccionario con las conversiones a metros
+# Diccionarios con las conversiones, se hace así para poder agregar más unidades a futuro.
 CONVERSION_FACTORS_LENGTH = {
     'meter': 1,
     'kilometer': 1000,
@@ -10,10 +10,7 @@ CONVERSION_FACTORS_WEIGHT = {
     'gram': 1,
     'kilogram': 1000,
 }
-CONVERSION_FACTORS_TEMPERATURE = {
-    'meter': 1,
-    'kilometer': 1000,
-}
+
 
 def length_conversion(request):
     context = {}
@@ -61,9 +58,42 @@ def weight_conversion(request):
     return render(request, 'converter/weight.html', context)
 
 def temperature_conversion(request):
+    context = {}
+
     if request.method == 'POST':
-        # Lógica para convertir temperaturas
-        context = {'converted_value': "Resultado de temperatura"}
-    else:
-        context = {}
+        value = float(request.POST.get('value'))
+        from_unit = request.POST.get('from_unit')
+        to_unit = request.POST.get('to_unit')
+
+        if from_unit == 'celsius':
+            if to_unit == 'fahrenheit':
+                converted_value = (value * 9/5) + 32
+            elif to_unit == 'kelvin':
+                converted_value = value + 273.15
+            else:
+                converted_value = value
+
+        elif from_unit == 'fahrenheit':
+            if to_unit == 'celsius':
+                converted_value = (value - 32) * 5/9
+            elif to_unit == 'kelvin':
+                converted_value = (value - 32) * 5/9 + 273.15
+            else:
+                converted_value = value
+
+        elif from_unit == 'kelvin':
+            if to_unit == 'celsius':
+                converted_value = value - 273.15
+            elif to_unit == 'fahrenheit':
+                converted_value = (value - 273.15) * 9/5 + 32
+            else:
+                converted_value = value
+
+        context = {
+            'converted_value': converted_value,
+            'from_unit': from_unit,
+            'to_unit': to_unit,
+            'value': value,
+        }
+
     return render(request, 'converter/temperature.html', context)

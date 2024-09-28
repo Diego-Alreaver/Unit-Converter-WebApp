@@ -1,0 +1,36 @@
+<!-- templates/converter/temperature.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Temperature Converter</title>
+</head>
+<body>
+    <h1>Convert Temperature</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="value">Value:</label>
+        <input type="number" step="any" name="value" id="value" value="{{ value|default_if_none:'' }}" required>
+        
+        <label for="from_unit">From:</label>
+        <select name="from_unit" id="from_unit">
+            <option value="celsius" {% if from_unit == 'celsius' %}selected{% endif %}>Celsius</option>
+            <option value="fahrenheit" {% if from_unit == 'fahrenheit' %}selected{% endif %}>Fahrenheit</option>
+            <option value="kelvin" {% if from_unit == 'kelvin' %}selected{% endif %}>Kelvin</option>
+        </select>
+
+        <label for="to_unit">To:</label>
+        <select name="to_unit" id="to_unit">
+            <option value="celsius" {% if to_unit == 'celsius' %}selected{% endif %}>Celsius</option>
+            <option value="fahrenheit" {% if to_unit == 'fahrenheit' %}selected{% endif %}>Fahrenheit</option>
+            <option value="kelvin" {% if to_unit == 'kelvin' %}selected{% endif %}>Kelvin</option>
+        </select>
+
+        <button type="submit">Convert</button>
+    </form>
+
+    {% if converted_value %}
+        <h2>Converted Value: {{ value }} {{ from_unit }} is {{ converted_value }} {{ to_unit }}</h2>
+    {% endif %}
+</body>
+</html>
